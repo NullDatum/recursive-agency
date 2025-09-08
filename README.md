@@ -98,14 +98,16 @@ I vow to:
 ├── 02_DESIGN_PRINCIPLES/
 │   └── no_god_words.md
 ├── 03_CORE_ARCHITECTURE/
-│   └── distributed_agency.md
+│   ├── distributed_agency.md
+│   ├── r2d2_core.md
+│   └── r2d2_core.py
 ├── 04_EVALUATION_PROTOCOLS/
 ├── LICENSE
 ├── LICENSE_AIR.md
 └── README.md
 ```
 
-The first stone is [`01_FOUNDATIONS/falsifiability.md`](./01_FOUNDATIONS/falsifiability.md) — criteria any claim to cognition must survive. Naming discipline is outlined in [`02_DESIGN_PRINCIPLES/no_god_words.md`](./02_DESIGN_PRINCIPLES/no_god_words.md), and early architecture sketches live in [`03_CORE_ARCHITECTURE/distributed_agency.md`](./03_CORE_ARCHITECTURE/distributed_agency.md).
+The first stone is [`01_FOUNDATIONS/falsifiability.md`](./01_FOUNDATIONS/falsifiability.md) — criteria any claim to cognition must survive. Naming discipline is outlined in [`02_DESIGN_PRINCIPLES/no_god_words.md`](./02_DESIGN_PRINCIPLES/no_god_words.md). Architectural sketches live in [`03_CORE_ARCHITECTURE/distributed_agency.md`](./03_CORE_ARCHITECTURE/distributed_agency.md), and the core recursive loop is implemented in [`03_CORE_ARCHITECTURE/r2d2_core.py`](./03_CORE_ARCHITECTURE/r2d2_core.py) with its conceptual outline in [`03_CORE_ARCHITECTURE/r2d2_core.md`](./03_CORE_ARCHITECTURE/r2d2_core.md).
 
 ## License
 
