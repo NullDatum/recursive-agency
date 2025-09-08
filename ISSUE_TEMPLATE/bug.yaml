@@ -1,0 +1,17 @@
+name: Bug
+description: Broken behavior or spec deviation
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+  - type: textarea
+    id: repro
+    attributes:
+      label: Repro steps
