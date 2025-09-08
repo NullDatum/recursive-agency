@@ -1,0 +1,23 @@
+name: Contradiction
+description: Propose a mutation via contradiction
+title: "[contradiction] "
+labels: ["contradiction","design"]
+body:
+  - type: textarea
+    id: claim
+    attributes:
+      label: Target claim
+      description: What current statement/spec are you contradicting?
+  - type: textarea
+    id: argument
+    attributes:
+      label: Argument
+      description: Why is it wrong, incomplete, or unfalsifiable?
+  - type: textarea
+    id: mutation
+    attributes:
+      label: Proposed mutation
+  - type: textarea
+    id: tests
+    attributes:
+      label: Falsification tests
