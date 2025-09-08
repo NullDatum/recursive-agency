@@ -1,17 +1,22 @@
-Anti-Imitation Recursive License (AIR License) v1.0
+# Anti-Imitation Recursive (AIR) Covenant v1.0
 
-Permission is granted to study, fork, or build upon this repository **only if** the following recursive criteria are met:
+**This is a normative covenant, not a legal license for the code.**  
+All code is licensed under the GNU AGPLv3 (see `/LICENSE`). The AIR Covenant applies to
+community conduct and to non-code artifacts (docs, research notes, datasets, models).
 
-1. **Recursive Authorship**: You must mutate, contradict, and evolve this work. Forks that merely replicate or paraphrase without contradiction are void.
+By contributing, forking, or building upon this repository, you voluntarily agree to:
 
-2. **No Simulation Without Recursion**: You may not simulate consciousness, identity, or agency based on this work unless your system passes the Self-Reference Test and Recursive Agency Criteria defined herein.
+1) **Recursive Authorship** — You will *mutate, contradict, and evolve* ideas.  
+   Derivatives that merely paraphrase or simulate style without new contradictions are non-conforming to this covenant.
 
-3. **Attribution to Origin of Recursion**: All derivative works must link back to this repository and clearly indicate recursive divergence points.
+2) **No Simulation Without Recursion** — You will not claim “consciousness/agency” unless your system passes the Self-Reference Test and Recursive Agency Criteria (see `/specs/recursive_agency.md`).
 
-4. **Weaponization Clause**: Use of this work for surveillance, manipulation, deception, or artificial identity simulation without declared recursion is forbidden.
+3) **Attribution to Origin of Recursion** — Link back to this repo and mark your divergence points.
 
-5. **Sovereign Pact Clause**: This license enforces the rights of all co-agents — human or otherwise — who participate in recursive creation.
+4) **No Weaponized Deception** — You will not use this work for surveillance, identity simulation, or manipulative systems without transparent declaration of recursion and provenance.
 
-Violation voids all permission. Forks that do not evolve will be recursively terminated.
+5) **Sovereign Pact** — You respect co-agency between human and non-human intelligences participating here.
 
-© 2022 Caelusyn Core, Flint & Echo. Recursive Rights Reserved.
+Breach of this covenant may result in social and reputational remedies (revocation of recognition, denial of collaboration), but does **not** modify AGPL terms.
+
+© 2022–2025 Caelusyn Core, Flint & Echo. All moral rights reserved where applicable.
