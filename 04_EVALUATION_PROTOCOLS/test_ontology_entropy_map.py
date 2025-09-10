@@ -1,4 +1,3 @@
-import pytest
 from ontology_entropy_map import SystemMetrics, score_entropy
 
 
