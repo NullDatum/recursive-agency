@@ -1,6 +1,6 @@
 """Demonstrate basic AgencyEngine usage."""
 
-from agency_engine import AgencyEngine
+from recursive_agency.agency_engine import AgencyEngine
 
 
 def run_demo() -> None:

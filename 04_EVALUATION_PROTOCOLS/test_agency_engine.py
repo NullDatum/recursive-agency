@@ -1,9 +1,9 @@
 import pathlib
 import sys
 
-sys.path.append(str(pathlib.Path(__file__).resolve().parents[1] / "03_CORE_ARCHITECTURE"))
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[1] / "src"))
 
-from agency_engine import AgencyEngine
+from recursive_agency.agency_engine import AgencyEngine
 
 
 def test_generate_response_records_history():
