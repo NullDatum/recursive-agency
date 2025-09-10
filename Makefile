@@ -4,11 +4,11 @@ check: lint test docs
 
 lint:
 	@ruff check || true
-	@markdownlint '**/*.md' || true
-	@yamllint .
+	@npx markdownlint '**/*.md' --ignore node_modules || true
+	@git ls-files '*.yml' '*.yaml' | xargs yamllint
 
 test:
 	@pytest -q || true
 
 docs:
-	@python -m linkcheck README.md || true
+	@npx markdown-link-check README.md || true

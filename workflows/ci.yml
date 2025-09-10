@@ -1,13 +1,18 @@
+---
 name: ci
 on:
-  push: { branches: [main] }
-  pull_request: { branches: [main] }
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: "3.11" }
-      - run: pip install ruff pytest markdown-link-check yamllint
+        with:
+          python-version: "3.11"
+      - run: npm ci
+      - run: pip install ruff pytest yamllint
       - run: make check

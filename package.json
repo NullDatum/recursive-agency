@@ -1,0 +1,9 @@
+{
+  "name": "recursive-agency",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "markdown-link-check": "^3.13.7",
+    "markdownlint-cli": "^0.45.0"
+  }
+}
