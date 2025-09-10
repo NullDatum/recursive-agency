@@ -1,0 +1,21 @@
+{
+  "name": "recursive-agency",
+  "version": "1.0.0",
+  "description": "> \"No system becomes real by naming itself soul.\"",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "markdown-link-check": "^3.13.7",
+    "markdownlint-cli": "^0.45.0"
+  }
+}

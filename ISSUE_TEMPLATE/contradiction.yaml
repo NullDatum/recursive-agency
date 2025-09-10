@@ -1,7 +1,7 @@
 name: Contradiction
 description: Propose a mutation via contradiction
 title: "[contradiction] "
-labels: ["contradiction","design"]
+labels: ["contradiction", "design"]
 body:
   - type: textarea
     id: claim
