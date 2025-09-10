@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if ! grep -iq '^Signed-off-by:' "$1"; then
+    echo "Error: Commit message must contain a Signed-off-by line." >&2
+    exit 1
+fi
