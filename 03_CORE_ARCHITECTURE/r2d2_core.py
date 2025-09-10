@@ -37,18 +37,34 @@ class R2D2Solver:
     aggregate: Callable[[List[Any]], Any]
     compress: Callable[[Any, List[Capsule]], Capsule]
 
-    def solve(self, problem: Any, memory: Optional[List[Capsule]] = None) -> Capsule:
+    def solve(
+        self,
+        problem: Any,
+        memory: Optional[List[Capsule]] = None,
+        max_depth: Optional[int] = None,
+    ) -> Capsule:
         """Solve ``problem`` recursively and return a capsule.
 
-        ``memory`` accumulates capsules from previous passes and is reused
-        across recursive calls, providing context and feedback.
+        Parameters
+        ----------
+        problem:
+            The problem instance to solve.
+        memory:
+            Accumulates capsules from previous passes and is reused across
+            recursive calls, providing context and feedback.
+        max_depth:
+            Optional recursion depth limit. A ``RecursionError`` is raised when
+            the limit is exceeded to prevent runaway recursion.
         """
+        if max_depth is not None and max_depth < 0:
+            raise RecursionError("Maximum recursion depth exceeded")
         if memory is None:
             memory = []
         if self.is_atomic(problem):
             return self._solve_atomic(problem, memory)
         parts = self.decompose(problem)
-        solutions = [self.solve(p, memory) for p in parts]
+        next_depth = None if max_depth is None else max_depth - 1
+        solutions = [self.solve(p, memory, next_depth) for p in parts]
         combined = self.aggregate([s.insight for s in solutions])
         capsule = self.compress(combined, memory)
         memory.append(capsule)
