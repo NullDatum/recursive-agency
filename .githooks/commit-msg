@@ -1,0 +1,6 @@
+#!/bin/sh
+# Ensure commit messages contain a Signed-off-by line.
+if ! grep -qi '^Signed-off-by:' "$1"; then
+  echo "Error: Commit message missing Signed-off-by line" >&2
+  exit 1
+fi
