@@ -42,3 +42,7 @@ while not solved:
 ```
 
 Each iteration sharpens the search space, with only new signal surviving.
+
+For a minimal working implementation that prints each capsule while solving a toy
+summation problem, see
+[`examples/basic_r2d2_usage.py`](../examples/basic_r2d2_usage.py).
