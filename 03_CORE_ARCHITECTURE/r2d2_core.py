@@ -40,8 +40,43 @@ class R2D2Solver:
     def solve(self, problem: Any, memory: Optional[List[Capsule]] = None) -> Capsule:
         """Solve ``problem`` recursively and return a capsule.
 
-        ``memory`` accumulates capsules from previous passes and is reused
-        across recursive calls, providing context and feedback.
+        Parameters
+        ----------
+        problem : Any
+            Arbitrary object representing the problem to tackle.
+        memory : list[Capsule], optional
+            Optional list used to store :class:`Capsule` objects from each
+            solver pass. This list acts as the solver's memory and is mutated
+            in place.
+
+        Returns
+        -------
+        Capsule
+            The compressed insight generated for ``problem``.
+
+        Memory
+        ------
+        ``memory`` is updated in place with the capsule produced at the end of
+        this call, enabling subsequent invocations to draw on past insights.
+
+        Examples
+        --------
+        >>> from r2d2_core import R2D2Solver, Capsule
+        >>> is_atomic = lambda n: n <= 1
+        >>> decompose = lambda n: [n - 1]
+        >>> hypothesize = lambda n, mem: [n]
+        >>> mutate = lambda h: [h]
+        >>> test = lambda c: c
+        >>> score = float
+        >>> aggregate = lambda parts: parts[0] + 1
+        >>> compress = lambda insight, mem: Capsule(insight, float(insight))
+        >>> solver = R2D2Solver(is_atomic, decompose, hypothesize, mutate,
+        ...                     test, score, aggregate, compress)
+        >>> memory = []
+        >>> solver.solve(3, memory).insight
+        3
+        >>> len(memory)
+        3
         """
         if memory is None:
             memory = []
