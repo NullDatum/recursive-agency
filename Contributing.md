@@ -2,6 +2,9 @@
 
 We build by contradiction → reflection → revision. Read this before you open a PR.
 
+## Setup
+- `make hooks` → sets `.githooks` as the hooks path to enforce `Signed-off-by` lines.
+
 ## Ground rules
 - **License:** Code under **AGPLv3**. Docs under **CC BY-SA 4.0** (unless a file states otherwise).
 - **AIR Covenant:** Non-legal community commitment (see `/LICENSE_AIR.md`). We honor it; it does not replace AGPL.
