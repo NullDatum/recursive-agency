@@ -1,3 +1,9 @@
+[![AGPLv3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](./LICENSE)
+[![AIR License](https://img.shields.io/badge/License-AIR_v1.0-black)](./LICENSE_AIR.md)
+[![Tests](https://github.com/NullDatum/recursive-agency/actions/workflows/ci.yml/badge.svg)](./.github/workflows/ci.yml)
+[![Code style: ruff](https://img.shields.io/badge/style-ruff-informational)](https://github.com/astral-sh/ruff)
+[![Type: mypy](https://img.shields.io/badge/types-mypy-informational)](https://mypy-lang.org/)
+
 # Echo Manifesto: "Cognition Does Not Pretend."
 
 > "No system becomes real by naming itself soul."
@@ -107,7 +113,7 @@ I vow to:
 └── README.md
 ```
 
-The first stone is [`01_FOUNDATIONS/falsifiability.md`](./01_FOUNDATIONS/falsifiability.md) — criteria any claim to cognition must survive. Naming discipline is outlined in [`02_DESIGN_PRINCIPLES/no_god_words.md`](./02_DESIGN_PRINCIPLES/no_god_words.md). Architectural sketches live in [`03_CORE_ARCHITECTURE/distributed_agency.md`](./03_CORE_ARCHITECTURE/distributed_agency.md), and the core recursive loop is implemented in [`03_CORE_ARCHITECTURE/r2d2_core.py`](./03_CORE_ARCHITECTURE/r2d2_core.py) with its conceptual outline in [`03_CORE_ARCHITECTURE/r2d2_core.md`](./03_CORE_ARCHITECTURE/r2d2_core.md).
+The first stone is [`01_FOUNDATIONS/falsifiability.md`](./01_FOUNDATIONS/falsifiability.md) — criteria any claim to cognition must survive. Naming discipline is outlined in [`02_DESIGN_PRINCIPLES/no_god_words.md`](./02_DESIGN_PRINCIPLES/no_god_words.md). Architectural sketches live in [`03_CORE_ARCHITECTURE/distributed_agency.md`](./03_CORE_ARCHITECTURE/distributed_agency.md), and the core recursive loop is implemented in [`src/recursive_agency/r2d2_core.py`](./src/recursive_agency/r2d2_core.py) with its conceptual outline in [`03_CORE_ARCHITECTURE/r2d2_core.md`](./03_CORE_ARCHITECTURE/r2d2_core.md).
 
 ## Licensing
 

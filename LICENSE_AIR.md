@@ -1,6 +1,8 @@
 # Anti-Imitation Recursive (AIR) Covenant v1.0
 
-**This is a normative covenant, not a legal license for the code.**  
+**Enforceability Note:** This license supplements, and does not replace, the AGPLv3. In any conflict, the stricter term (regarding imitation vs. recursion) governs *as an additional condition of contribution and trademark-like use of the “Recursive Agency” marks and nomenclature*. Use outside these marks remains subject to AGPLv3 alone.
+
+**This is a normative covenant, not a legal license for the code.**
 All code is licensed under the GNU AGPLv3 (see `/LICENSE`). The AIR Covenant applies to
 community conduct and to non-code artifacts (docs, research notes, datasets, models).
 
