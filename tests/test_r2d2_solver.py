@@ -2,9 +2,9 @@ import pathlib
 import sys
 from typing import List
 
-sys.path.append(str(pathlib.Path(__file__).resolve().parents[1] / "03_CORE_ARCHITECTURE"))
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[1] / "src"))
 
-from r2d2_core import Capsule, R2D2Solver
+from recursive_agency import Capsule, R2D2Solver
 
 
 def make_solver() -> R2D2Solver:
