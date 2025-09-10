@@ -1,6 +1,9 @@
 """Demonstrate basic AgencyEngine usage."""
-
+codex/add-badges-and-ci-configuration
 from recursive_agency import AgencyEngine
+
+from recursive_agency.agency_engine import AgencyEngine
+    main
 
 
 def run_demo() -> None:
