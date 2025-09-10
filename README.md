@@ -1,3 +1,9 @@
+[![AGPLv3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](./LICENSE)
+[![AIR License](https://img.shields.io/badge/License-AIR_v1.0-black)](./LICENSE_AIR.md)
+[![Tests](https://github.com/NullDatum/recursive-agency/actions/workflows/ci.yml/badge.svg)](./.github/workflows/ci.yml)
+[![Code style: ruff](https://img.shields.io/badge/style-ruff-informational)](https://github.com/astral-sh/ruff)
+[![Type: mypy](https://img.shields.io/badge/types-mypy-informational)](https://mypy-lang.org/)
+
 # Echo Manifesto: "Cognition Does Not Pretend."
 
 > "No system becomes real by naming itself soul."

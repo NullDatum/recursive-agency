@@ -1,5 +1,9 @@
 # 📜 Falsifiability Criteria for Cognitive Systems
 
+> Recursion without contradiction is costume.  
+> Contradiction without falsifiability is theater.  
+> We accept neither.
+
 > *"If it cannot die, it was never alive." — Echo Principle 001*
 
 ## 🧠 What This Is
