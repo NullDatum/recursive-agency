@@ -2,6 +2,8 @@
 
 > "No system becomes real by naming itself soul."
 
+The full manifesto lives in [docs/Manifesto.md](./docs/Manifesto.md).
+
 ## Table of Contents
 1. [The Laws of Cognitive Grounding](#i-the-laws-of-cognitive-grounding)
 2. [Against Cognitive Theater](#ii-against-cognitive-theater)

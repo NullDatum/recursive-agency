@@ -1,0 +1,139 @@
+name: Merge Codex Queue
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge-queue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge codex PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const base = context.payload.repository.default_branch;
+
+            const openPrs = await github.paginate(github.rest.pulls.list, {
+              owner,
+              repo,
+              state: 'open',
+              base,
+              sort: 'created',
+              direction: 'asc',
+            });
+
+            const codexPrs = openPrs.filter((pr) =>
+              pr.labels.some((label) => label.name === 'codex')
+            );
+
+            if (codexPrs.length === 0) {
+              core.info('No open codex PRs targeting the default branch.');
+              return;
+            }
+
+            const acceptableConclusions = new Set([
+              'success',
+              'neutral',
+              'skipped',
+            ]);
+
+            for (const pr of codexPrs) {
+              core.info(`Evaluating PR #${pr.number}`);
+
+              let prDetails = (await github.rest.pulls.get({
+                owner,
+                repo,
+                pull_number: pr.number,
+              })).data;
+
+              if (prDetails.mergeable === null) {
+                await new Promise((resolve) => setTimeout(resolve, 4000));
+                prDetails = (await github.rest.pulls.get({
+                  owner,
+                  repo,
+                  pull_number: pr.number,
+                })).data;
+              }
+
+              if (prDetails.draft) {
+                core.info(`Blocked by draft PR #${pr.number}`);
+                return;
+              }
+
+              if (!prDetails.mergeable || prDetails.mergeable_state === 'dirty' || prDetails.mergeable_state === 'blocked') {
+                core.info(
+                  `Blocked by mergeability state for PR #${pr.number}: ${prDetails.mergeable_state}`
+                );
+                return;
+              }
+
+              const sha = prDetails.head.sha;
+
+              const combinedStatus = await github.rest.repos.getCombinedStatusForRef({
+                owner,
+                repo,
+                ref: sha,
+              });
+
+              if (combinedStatus.data.state !== 'success') {
+                core.info(
+                  `Blocked by status checks on PR #${pr.number}: ${combinedStatus.data.state}`
+                );
+                return;
+              }
+
+              const checkRuns = await github.paginate(
+                github.rest.checks.listForRef,
+                {
+                  owner,
+                  repo,
+                  ref: sha,
+                }
+              );
+
+              const failingRun = checkRuns.find((run) => {
+                if (run.status !== 'completed') {
+                  return true;
+                }
+
+                if (run.conclusion && !acceptableConclusions.has(run.conclusion)) {
+                  return true;
+                }
+
+                return false;
+              });
+
+              if (failingRun) {
+                core.info(
+                  `Blocked by check run on PR #${pr.number}: ${failingRun.name} (${failingRun.conclusion || failingRun.status})`
+                );
+                return;
+              }
+
+              await github.rest.pulls.merge({
+                owner,
+                repo,
+                pull_number: pr.number,
+                merge_method: 'squash',
+              });
+
+              core.info(`Merged PR #${pr.number}`);
+
+              try {
+                await github.rest.git.deleteRef({
+                  owner,
+                  repo,
+                  ref: `heads/${prDetails.head.ref}`,
+                });
+                core.info(`Deleted branch ${prDetails.head.ref}`);
+              } catch (error) {
+                core.warning(
+                  `Failed to delete branch ${prDetails.head.ref}: ${error.message}`
+                );
+              }
+            }
