@@ -1,0 +1,101 @@
+---
+name: auto-pr
+'on':
+  push:
+    branches:
+      - task/**
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to open a PR against main (optional when dispatching manually)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open or update pull request
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const core = require('@actions/core');
+
+            const repo = context.repo;
+            const base = 'main';
+            const branchInput = context.payload.inputs?.branch;
+            const branch = branchInput && branchInput.trim()
+              ? branchInput.trim()
+              : context.ref.replace('refs/heads/', '');
+
+            if (branch === base) {
+              core.info('Branch matches base (main); skipping PR creation.');
+              return;
+            }
+
+            const { data: existing } = await github.pulls.list({
+              owner: repo.owner,
+              repo: repo.repo,
+              head: `${repo.owner}:${branch}`,
+              state: 'all',
+            });
+
+            if (existing.length) {
+              const pr = existing[0];
+
+              const ensureLabel = async (prNumber) => {
+                await github.issues.addLabels({
+                  owner: repo.owner,
+                  repo: repo.repo,
+                  issue_number: prNumber,
+                  labels: ['codex'],
+                });
+              };
+
+              if (pr.state === 'open') {
+                await ensureLabel(pr.number);
+                core.info(`PR already exists: ${pr.html_url}`);
+                return;
+              }
+
+              core.info(`Reopening existing PR: ${pr.html_url}`);
+              await github.pulls.update({
+                owner: repo.owner,
+                repo: repo.repo,
+                pull_number: pr.number,
+                state: 'open',
+              });
+              await ensureLabel(pr.number);
+              return;
+            }
+
+            const title = `auto: ${branch}`;
+            const body = [
+              `Automated pull request for branch \`${branch}\`.`,
+              '',
+              'Opened by `workflows/auto-pr.yml` to reduce manual overhead for a single maintainer.',
+            ].join('\n');
+
+            const { data: pr } = await github.pulls.create({
+              owner: repo.owner,
+              repo: repo.repo,
+              head: branch,
+              base,
+              title,
+              body,
+              draft: true,
+            });
+
+            await github.issues.addLabels({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: pr.number,
+              labels: ['codex'],
+            });
+
+            core.info(`Created PR: ${pr.html_url}`);
