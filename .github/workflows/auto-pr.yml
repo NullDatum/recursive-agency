@@ -1,0 +1,85 @@
+name: Auto PR for Codex task branches
+
+on:
+  push:
+    branches:
+      - "task/**"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or update pull request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.ref.replace('refs/heads/', '');
+            const { owner, repo } = context.repo;
+            const base = context.payload.repository.default_branch;
+            const head = `${owner}:${branch}`;
+
+            core.info(`Processing branch ${branch} -> base ${base}`);
+
+            const existing = await github.paginate(github.rest.pulls.list, {
+              owner,
+              repo,
+              head,
+              base,
+              state: 'all',
+            });
+
+            let targetPr = existing.find((pr) => pr.state === 'open');
+
+            if (!targetPr) {
+              const closedNotMerged = existing.find(
+                (pr) => pr.state === 'closed' && !pr.merged_at
+              );
+
+              if (closedNotMerged) {
+                core.info(`Reopening existing PR #${closedNotMerged.number}`);
+                const reopened = await github.rest.pulls.update({
+                  owner,
+                  repo,
+                  pull_number: closedNotMerged.number,
+                  state: 'open',
+                });
+                targetPr = reopened.data;
+              }
+            }
+
+            if (!targetPr) {
+              const title = `Auto PR for ${branch}`;
+              const body = `Automated PR for branch \`${branch}\`.`;
+
+              const created = await github.rest.pulls.create({
+                owner,
+                repo,
+                head: branch,
+                base,
+                title,
+                body,
+              });
+
+              targetPr = created.data;
+              core.info(`Created new PR #${targetPr.number}`);
+            }
+
+            const labels = targetPr.labels?.map((label) => label.name) || [];
+            if (!labels.includes('codex')) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: targetPr.number,
+                labels: ['codex'],
+              });
+              core.info(`Applied codex label to PR #${targetPr.number}`);
+            } else {
+              core.info(`PR #${targetPr.number} already labeled codex`);
+            }
+
+            core.info(`Target PR: #${targetPr.number}`);
